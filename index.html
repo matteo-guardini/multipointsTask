@@ -14,32 +14,39 @@
     </head>
     <body>
         <div id="taskMapDiv" style="height: 500px;"></div>
-        <table class="table table-bordered table-hover table-striped table-sm" id="taskTable">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Raggio</th>
-                    <th>Points</th>
-                    <th>Top landing</th>
-                    <th>Start</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="row">
+            <div class="col">
+                <h5>Regolamento</h5>
+                <ul>
+                    <li>Decollo libero</li>
+                    <li>Orario libero dall'alba al tramonto</li>
+                    <li>Start obbligatorio sul punto indicato come "Start"</li>
+                    <li>Se si atterra è consentito ripartire raggiungendo un decollo solo tramite hike</li>
+                    <li>Ogni waypoint ha un punteggio in base all difficoltà e si può fare solo una volta</li>
+                    <li>La somma totale dei punti ottenuti forma il punteggio finale; a prità di punteggio vince chi impiega meno tempo dall'uscita dello start all'ingresso all'ultimo waypoint</li>
+                    <li>2 categorie: Open (tutti) e Fun (piloti con poca esperienza di cross e categoria di vela massimo EN B)</li>
+                </ul>
+            </div>
+        
+            <div class="col" style="height: 400px; overflow: auto;">
+                <table class="table table-bordered table-hover table-striped table-sm" id="taskTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                            <th>Raggio</th>
+                            <th>Points</th>
+                            <th>Top landing</th>
+                            <th>Start</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            </tbody>
-        </table>
-        <h5>Regolamento</h5>
-        <ul class="list-group">
-            <li class="list-group-item">Decollo libero</li>
-            <li class="list-group-item">Orario libero dall'alba al tramonto</li>
-            <li class="list-group-item">Start obbligatorio sul punto indicato come "Start"</li>
-            <li class="list-group-item">Se si atterra è consentito ripartire raggikungendo un decollo solo tramite hike</li>
-            <li class="list-group-item">Ogni waypoint ha un punteggio in base all difficoltà e si può fare solo una volta</li>
-            <li class="list-group-item">La somma totale dei punti ottenuti forma il punteggio finale; a prità di punteggio vince chi impiega meno tempo dall'uscita dello start all'ingresso all'ultimo waypoint</li>
-            <li class="list-group-item">2 categorie: Open (tutti) e Fun (piloti con poca esperienza di cross e categoria di vela massimo EN B)</li>
-        </ul>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <!-- jQuery ver. 3.6.0 -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <!-- Bootstrap ver. 5.1.3 -->
@@ -295,7 +302,37 @@
                     toplanding: false,
                     toplandingPoints: 0,
                     start: false
-                }
+                },
+                {
+                    name: "Seguini", 
+                    lat: 45.62901808,
+                    lon: 10.8041603,
+                    points: 2,
+                    radius: 400,
+                    toplanding: false,
+                    toplandingPoints: 0,
+                    start: false
+                },
+                {
+                    name: "Lazise", 
+                    lat: 45.50597501070495,
+                    lon: 10.735116544469939,
+                    points: 4,
+                    radius: 1000,
+                    toplanding: false,
+                    toplandingPoints: 0,
+                    start: false
+                },
+                {
+                    name: "Rivoli", 
+                    lat: 45.572977048187475,
+                    lon: 10.810140788531456,
+                    points: 2,
+                    radius: 400,
+                    toplanding: false,
+                    toplandingPoints: 0,
+                    start: false
+                },
             ];
 
             const configMap = {
