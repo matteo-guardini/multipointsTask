@@ -35,6 +35,51 @@ To view the map and task details, open the `index.html` file in your web browser
     ```
 2. Open the `index.html` file in your preferred web browser to view the map and task details.
 
+## Customization
+
+### Modifying Waypoints
+
+To modify the waypoints, you need to edit the `points` JSON variable in the `index.html` file. Each waypoint object has the following attributes:
+
+- `name`: The name of the waypoint.
+- `lat`: Latitude coordinate of the waypoint.
+- `lon`: Longitude coordinate of the waypoint.
+- `points`: The score assigned to the waypoint based on its difficulty.
+- `radius`: The radius of the waypoint's influence area in meters.
+- `toplanding`: A boolean indicating whether top landing is allowed at this waypoint.
+- `toplandingPoints`: Additional points awarded for top landing at this waypoint.
+- `start`: A boolean indicating whether this waypoint is the start point.
+
+Example of a waypoint object:
+```javascript
+{
+    name: "Crocetta", 
+    lat: 45.622708,
+    lon: 10.7843049,
+    points: 0,
+    radius: 600,
+    toplanding: false,
+    toplandingPoints: 0,
+    start: true
+}
+```
+
+### Modifying Colors
+
+To change the colors used for different waypoints, you can modify the `pointColors` array. Each element in the array corresponds to a specific difficulty level. The colors are specified in hexadecimal format.
+
+Example of the `pointColors` array:
+```javascript
+const pointColors = [
+    "#fff",    // Color for 0 points
+    "green",   // Color for 1 point
+    "yellow",  // Color for 2 points
+    "orange",  // Color for 3 points
+    "red",     // Color for 4 points
+    "blue",    // Additional colors as needed
+];
+```
+
 ## Features
 
 - **Map Display:** The map is displayed using Leaflet, an open-source JavaScript library for mobile-friendly interactive maps.
