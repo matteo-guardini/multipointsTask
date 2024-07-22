@@ -25,9 +25,7 @@ To view the map and task details, open the `index.html` file in your web browser
 
 ## Repository Structure
 
-- `index.html`: The main HTML file displaying the map and task waypoints.
-- `styles.css`: Contains the CSS for styling the HTML page.
-- `scripts.js`: JavaScript file for map interactions and logic (if applicable).
+- `index.html`: The main HTML file displaying the map and task waypoints; contains the CSS for styling the HTML page and JavaScript for map interactions and logic
 
 ## How to Use
 
