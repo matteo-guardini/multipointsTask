@@ -1,6 +1,6 @@
 # Paragliding Task Competition Map
 
-This repository contains an HTML page that displays a map for a paragliding task competition. The map highlights the task's waypoints and rules. The competition has specific rules and scoring mechanisms outlined below.
+This repository contains an HTML file that displays a map for a paragliding task competition. The map highlights the task's waypoints and provides an overview of the competition rules. 
 
 ## Competition Rules
 
@@ -25,7 +25,7 @@ To view the map and task details, open the `index.html` file in your web browser
 
 ## Repository Structure
 
-- `index.html`: The main HTML file displaying the map and task waypoints; contains the CSS for styling the HTML page and JavaScript for map interactions and logic
+- `index.html`: The main HTML file displaying the map and task waypoints.
 
 ## How to Use
 
@@ -34,6 +34,21 @@ To view the map and task details, open the `index.html` file in your web browser
     git clone https://github.com/yourusername/paragliding-task-competition.git
     ```
 2. Open the `index.html` file in your preferred web browser to view the map and task details.
+
+## Features
+
+- **Map Display:** The map is displayed using Leaflet, an open-source JavaScript library for mobile-friendly interactive maps.
+- **Waypoint Information:** Each waypoint on the map is marked with a pin and includes information such as name, coordinates, radius, points, and whether top landing is allowed.
+- **Task Rules:** The rules of the competition are clearly listed for easy reference.
+- **Bootstrap Integration:** The layout and styling are enhanced using Bootstrap.
+
+## External Resources
+
+This project uses the following external resources:
+- [Bootstrap](https://getbootstrap.com/) for styling and layout.
+- [Leaflet](https://leafletjs.com/) for map display.
+- [Leaflet Fullscreen](https://github.com/Leaflet/Leaflet.fullscreen) for full-screen map capability.
+- [jQuery](https://jquery.com/) for DOM manipulation.
 
 ## Contributing
 
@@ -45,4 +60,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Feel free to customize this readme according to your specific needs and additional files or features in your repository.
+Feel free to customize this README according to your specific needs and additional files or features in your repository.
