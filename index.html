@@ -16,13 +16,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.2.0/Control.FullScreen.css"
         integrity="sha512-OyIJmh4XggYsUxdlYua68RMPbPo/5b63LHzoLETEVwubMGcJp9IrbmxxydRZw41FiOKAK0M60eOiqkRq59OwpA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="style.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="taskMapDiv" style="height: 500px;"></div>
-    <div class="row">
-        <div class="col">
-            <h5>Regolamento</h5>
+
+    <div class="dropdown btnOverMap">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">Waypoints</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Regolamento</a></li>
+        </ul>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Waypoints</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body small">
+        <button type="button" class="btn btn-primary btn-sm float-end" onclick="wptCreator();"><i class="fa-solid fa-download"></i></button>
+        <table class="table table-bordered table-hover table-striped table-sm" id="taskTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Altitude</th>
+                    <th>Raggio</th>
+                    <th>Points</th>
+                    <th>Top landing</th>
+                    <th>Start</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Regolamento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
             <ul>
                 <li>Decollo libero, orario libero dall'alba al tramonto</li>
                 <li>Start obbligatorio sul punto indicato come "Start"</li>
@@ -31,31 +71,13 @@
                 <li>Se si atterra è consentito ripartire raggiungendo un decollo solo tramite hike</li>
                 <li>La somma totale dei punti ottenuti forma il punteggio finale; a prità di punteggio vince chi impiega
                     meno tempo dall'uscita dello start all'ingresso all'ultimo waypoint</li>
-                <li>2 categorie: Open (tutti) e Fun (piloti con poca esperienza di cross e categoria di vela massimo EN
-                    B)</li>
+                <li>2 categorie: Open (tutti) e Fun (piloti con poca esperienza di cross e categoria di vela massimo EN B)</li>
             </ul>
         </div>
-
-        <div class="col" style="height: 400px; overflow: auto;">
-            <h5>Waypoints <button type="button" class="btn btn-primary btn-sm float-end" onclick="wptCreator();"><i class="fa-solid fa-download"></i></button></h5>
-            <table class="table table-bordered table-hover table-striped table-sm" id="taskTable">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Altitude</th>
-                        <th>Raggio</th>
-                        <th>Points</th>
-                        <th>Top landing</th>
-                        <th>Start</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
     </div>
+
+    <div id="taskMapDiv"></div>
+
     <!-- jQuery ver. 3.6.0 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Bootstrap ver. 5.1.3 -->

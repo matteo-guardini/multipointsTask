@@ -24,7 +24,7 @@ function createTaskMap(points) {
         subdomains: ["mt0", "mt1", "mt2", "mt3"],
     })
     // Add layer control
-    const baseLayers = L.control
+    L.control
         .layers({
             "Satellite": googleHybrid,
             "Base Map": baseLayer
@@ -39,8 +39,15 @@ function createTaskMap(points) {
         const point = [p.lat, p.lon];
         coordinates.push(point);
         // marker
-        const iconPoint = map_create_fa_marker_icon("fa-solid fa-location-pin", p.name, pointColors[p.points], "#fff", "#000");
-        markerPoints[n] = L.marker(point).addTo(taskMap).bindPopup(popupText(p));
+        let icon = "fa-solid fa-location-pin";
+        if(p.start){
+            icon = "fa-solid fa-flag-checkered";
+        }
+        else if(p.toplanding){
+            icon = "fa-solid fa-plane-arrival";
+        }
+        const iconPoint = map_create_fa_marker_icon(icon, p.name, pointColors[p.points], "#fff", "#000");
+        markerPoints[n] = L.marker(point).addTo(taskMap).bindPopup(markerPopupText(p));
         markerPoints[n].setIcon(iconPoint); // aggiorno il marker con la nuova icona
         // cerchio
         L.circle(point, { radius: p.radius, color: pointColors[p.points] }).addTo(taskMap);
@@ -74,8 +81,11 @@ function map_create_fa_marker_icon(fa, text, iconColor = "green", bgcolor = "#66
     return iconPoint;
 }
 
-function popupText(p) {
+function markerPopupText(p) {
     let txt = `<div><strong>${p.name}</strong></div>`;
+    if (p.alt) {
+        txt += `<div>Altiudine: ${p.alt} m</div>`;
+    }
     if (p.points > 0) {
         txt += `<div>Punti: ${p.points}</div>`;
     }
@@ -83,7 +93,7 @@ function popupText(p) {
         txt += `<div>Start task</div>`;
     }
     if (p.radius) {
-        txt += `<div>Raggio: ${p.radius} metri</div>`;
+        txt += `<div>Raggio: ${p.radius} m</div>`;
     }
     if (p.toplanding) {
         txt += `<div>Top landing consentito: ${p.toplandingPoints} punti</div>`;

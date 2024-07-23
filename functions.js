@@ -58,7 +58,6 @@ async function wptCreator() {
         alt = alt.toString().padStart(4, ' ');
         fileContent += `\n${wpCode}${lat}${lon}${alt}  ${v.name}`;
     }
-    console.log(fileContent);
     var hiddenElement = document.createElement('a');
     hiddenElement.download = 'waypoints.geo';
     var blob = new Blob([fileContent], {
@@ -67,7 +66,6 @@ async function wptCreator() {
     hiddenElement.href = window.URL.createObjectURL(blob);
     hiddenElement.click();
 }
-
 
 function deg_to_dms(deg) {
     let d = Math.floor(deg);
