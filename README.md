@@ -1,6 +1,6 @@
 # Paragliding Task Competition Map
 
-This repository contains an HTML file that displays a map for a paragliding task competition. The map highlights the task's waypoints and provides an overview of the competition rules. 
+This repository contains an HTML file that displays a map for a paragliding task competition. The map highlights the task's waypoints and provides an overview of the competition rules.
 
 ## Competition Rules
 
@@ -26,6 +26,10 @@ To view the map and task details, open the `index.html` file in your web browser
 ## Repository Structure
 
 - `index.html`: The main HTML file displaying the map and task waypoints.
+- `definitions.js`: Contains definitions and constants used in the map and waypoint functions.
+- `map.js`: Contains functions for initializing and displaying the map with waypoints.
+- `functions.js`: Contains additional utility functions for handling waypoints and other features.
+- `waypoints.json`: JSON file containing waypoint data.
 
 ## How to Use
 
@@ -39,34 +43,34 @@ To view the map and task details, open the `index.html` file in your web browser
 
 ### Modifying Waypoints
 
-To modify the waypoints, you need to edit the `points` JSON variable in the `index.html` file. Each waypoint object has the following attributes:
+To modify the waypoints, you need to edit the `waypoints.json` file. Each waypoint object has the following attributes:
 
 - `name`: The name of the waypoint.
 - `lat`: Latitude coordinate of the waypoint.
 - `lon`: Longitude coordinate of the waypoint.
-- `points`: The score assigned to the waypoint based on its difficulty.
+- `altitude`: Altitude of the waypoint in meters.
 - `radius`: The radius of the waypoint's influence area in meters.
+- `points`: The score assigned to the waypoint based on its difficulty.
 - `toplanding`: A boolean indicating whether top landing is allowed at this waypoint.
-- `toplandingPoints`: Additional points awarded for top landing at this waypoint.
 - `start`: A boolean indicating whether this waypoint is the start point.
 
-Example of a waypoint object:
-```javascript
+Example of a waypoint object in `waypoints.json`:
+```json
 {
-    name: "Crocetta", 
-    lat: 45.622708,
-    lon: 10.7843049,
-    points: 0,
-    radius: 600,
-    toplanding: false,
-    toplandingPoints: 0,
-    start: true
+    "name": "Crocetta", 
+    "lat": 45.622708,
+    "lon": 10.7843049,
+    "altitude": 1500,
+    "radius": 600,
+    "points": 0,
+    "toplanding": false,
+    "start": true
 }
 ```
 
 ### Modifying Colors
 
-To change the colors used for different waypoints, you can modify the `pointColors` array. Each element in the array corresponds to a specific difficulty level. The colors are specified in hexadecimal format.
+To change the colors used for different waypoints, you can modify the `pointColors` array in the JavaScript files. Each element in the array corresponds to a specific difficulty level. The colors are specified in hexadecimal format.
 
 Example of the `pointColors` array:
 ```javascript
@@ -76,7 +80,7 @@ const pointColors = [
     "yellow",  // Color for 2 points
     "orange",  // Color for 3 points
     "red",     // Color for 4 points
-    "blue",    // Additional colors as needed
+    "blue"     // Additional colors as needed
 ];
 ```
 
@@ -86,6 +90,7 @@ const pointColors = [
 - **Waypoint Information:** Each waypoint on the map is marked with a pin and includes information such as name, coordinates, radius, points, and whether top landing is allowed.
 - **Task Rules:** The rules of the competition are clearly listed for easy reference.
 - **Bootstrap Integration:** The layout and styling are enhanced using Bootstrap.
+- **Download Button:** A button to download waypoint data as a file.
 
 ## External Resources
 
