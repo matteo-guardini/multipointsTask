@@ -1,444 +1,87 @@
 <!doctype html>
 <html lang="it">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Task</title>
-        <meta name="description" content="">
-        <meta name="format-detection" content="telephone=no">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.2.0/Control.FullScreen.css" integrity="sha512-OyIJmh4XggYsUxdlYua68RMPbPo/5b63LHzoLETEVwubMGcJp9IrbmxxydRZw41FiOKAK0M60eOiqkRq59OwpA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    </head>
-    <body>
-        <div id="taskMapDiv" style="height: 500px;"></div>
-        <div class="row">
-            <div class="col">
-                <h5>Regolamento</h5>
-                <ul>
-                    <li>Decollo libero, orario libero dall'alba al tramonto</li>
-                    <li>Start obbligatorio sul punto indicato come "Start"</li>
-                    <li>Ogni waypoint ha un punteggio in base all difficoltà e si può fare solo una volta; l'ordine dei waypoint è deciso dal pilota</li>
-                    <li>Se si atterra è consentito ripartire raggiungendo un decollo solo tramite hike</li>
-                    <li>La somma totale dei punti ottenuti forma il punteggio finale; a prità di punteggio vince chi impiega meno tempo dall'uscita dello start all'ingresso all'ultimo waypoint</li>
-                    <li>2 categorie: Open (tutti) e Fun (piloti con poca esperienza di cross e categoria di vela massimo EN B)</li>
-                </ul>
-            </div>
-        
-            <div class="col" style="height: 400px; overflow: auto;">
-                <table class="table table-bordered table-hover table-striped table-sm" id="taskTable">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Latitude</th>
-                            <th>Longitude</th>
-                            <th>Raggio</th>
-                            <th>Points</th>
-                            <th>Top landing</th>
-                            <th>Start</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                    </tbody>
-                </table>
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task</title>
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.2.0/Control.FullScreen.css"
+        integrity="sha512-OyIJmh4XggYsUxdlYua68RMPbPo/5b63LHzoLETEVwubMGcJp9IrbmxxydRZw41FiOKAK0M60eOiqkRq59OwpA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div id="taskMapDiv" style="height: 500px;"></div>
+    <div class="row">
+        <div class="col">
+            <h5>Regolamento</h5>
+            <ul>
+                <li>Decollo libero, orario libero dall'alba al tramonto</li>
+                <li>Start obbligatorio sul punto indicato come "Start"</li>
+                <li>Ogni waypoint ha un punteggio in base all difficoltà e si può fare solo una volta; l'ordine dei
+                    waypoint è deciso dal pilota</li>
+                <li>Se si atterra è consentito ripartire raggiungendo un decollo solo tramite hike</li>
+                <li>La somma totale dei punti ottenuti forma il punteggio finale; a prità di punteggio vince chi impiega
+                    meno tempo dall'uscita dello start all'ingresso all'ultimo waypoint</li>
+                <li>2 categorie: Open (tutti) e Fun (piloti con poca esperienza di cross e categoria di vela massimo EN
+                    B)</li>
+            </ul>
         </div>
-        <!-- jQuery ver. 3.6.0 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <!-- Bootstrap ver. 5.1.3 -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <!-- Make sure you put this AFTER Leaflet's CSS -->
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.2.0/Control.FullScreen.min.js" integrity="sha512-10PRJppn1d6/3lrfc+7e4S+0mfdNFLlv3QmDpwISpVsrPdkSccy/T22neLEWc5cmL6biDscH3WwrhHam9vMOIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-            const pointColors = [
-                "#fff",
-                "green",
-                "yellow",
-                "orange",
-                "red",
-                "blue",
-                "#888",
-                "#777",
-                "#666",
-                "#555",
-                "#444",
-                "#333",
-                "#222",
-                "#111",
-            ];
 
-            const points = [
-                {
-                    name: "Crocetta", 
-                    lat: 45.622708,
-                    lon: 10.7843049,
-                    points: 0,
-                    radius: 600,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: true
-                },    
-                {
-                    name: "Decollo Gas", 
-                    lat: 45.6123582,
-                    lon: 10.7478036,
-                    points: 1,
-                    radius: 200,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Colonei", 
-                    lat: 45.6516476,
-                    lon: 10.8151721,
-                    points: 2,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Chierego", 
-                    lat: 45.682914,
-                    lon: 10.8161937,
-                    points: 3,
-                    radius: 400,
-                    toplanding: true,
-                    toplandingPoints: 5,
-                    start: false
-                },
-                {
-                    name: "Decollo Malcesine", 
-                    lat: 45.7734264,
-                    lon: 10.863826,
-                    points: 4,
-                    radius: 400,
-                    toplanding: true,
-                    toplandingPoints: 5,
-                    start: false
-                },
-                {
-                    name: "Altissimo", 
-                    lat: 45.810341,
-                    lon: 10.8888968,
-                    points: 4,
-                    radius: 400,
-                    toplanding: true,
-                    toplandingPoints: 5,
-                    start: false
-                },
-                {
-                    name: "Laghetto quadro", 
-                    lat: 45.5814339,
-                    lon: 10.7816794,
-                    points: 2,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Favetta", 
-                    lat: 45.602572,
-                    lon: 10.7767374,
-                    points: 1,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Ca Bottona", 
-                    lat: 45.5848866,
-                    lon: 10.7538431,
-                    points: 1,
-                    radius: 200,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Castion", 
-                    lat: 45.6061689,
-                    lon: 10.7298358,
-                    points: 1,
-                    radius: 200,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "La Meridiana", 
-                    lat: 45.5860731,
-                    lon: 10.7426857,
-                    points: 1,
-                    radius: 200,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Deltaland", 
-                    lat: 45.5983511,
-                    lon: 10.8213538,
-                    points: 2,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Pastello", 
-                    lat: 45.5828593,
-                    lon: 10.8670906,
-                    points: 3,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Telegrafo", 
-                    lat: 45.7051069,
-                    lon: 10.8325753,
-                    points: 3,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Corno mozzo", 
-                    lat: 45.6693097,
-                    lon: 10.9625518,
-                    points: 4,
-                    radius: 400,
-                    toplanding: true,
-                    toplandingPoints: 5,
-                    start: false
-                },
-                {
-                    name: "Rugby Valpolicella", 
-                    lat: 45.5213215,
-                    lon: 10.8834006,
-                    points: 4,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Moscal", 
-                    lat: 45.5577518,
-                    lon: 10.7672239,
-                    points: 3,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Rio Valli", 
-                    lat: 45.5371156,
-                    lon: 10.7879204,
-                    points: 3,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "La Rocca", 
-                    lat: 45.5689475,
-                    lon: 10.7127219,
-                    points: 2,
-                    radius: 800,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "La Casa degli Spiriti", 
-                    lat: 45.6190775,
-                    lon: 10.7163216,
-                    points: 1,
-                    radius: 600,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Monte Lenzino", 
-                    lat: 45.6016079,
-                    lon: 10.712351,
-                    points: 1,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Monte Luppia", 
-                    lat: 45.5814639,
-                    lon: 10.6922916,
-                    points: 2,
-                    radius: 800,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Bosco Chiesanuova", 
-                    lat: 45.6208688,
-                    lon: 11.033129,
-                    points: 4,
-                    radius: 1000,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Seguini", 
-                    lat: 45.62901808,
-                    lon: 10.8041603,
-                    points: 2,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Lazise", 
-                    lat: 45.50597501070495,
-                    lon: 10.735116544469939,
-                    points: 4,
-                    radius: 1000,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-                {
-                    name: "Rivoli", 
-                    lat: 45.572977048187475,
-                    lon: 10.810140788531456,
-                    points: 2,
-                    radius: 400,
-                    toplanding: false,
-                    toplandingPoints: 0,
-                    start: false
-                },
-            ];
-
-            const configMap = {
-                fullscreenControl: true,
-                fullscreenControlOptions: {
-                // optional
-                title: 'Mappa a schermo completo',
-                titleCancel: 'Esci da mappa a schermo completo'
-                }
-            };
-
-            const taskMap = L.map("taskMapDiv", configMap).setView([0, 0], 13);
-            // Add base layers
-            const baseLayer = L.tileLayer(
-                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {
-                    maxZoom: 19,
-                    attribution: "",
-                }
-            ).addTo(taskMap);;
-            // mappa ibrida google
-            const googleHybrid = L.tileLayer("http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}", {
-                maxZoom: 22,
-                subdomains: ["mt0", "mt1", "mt2", "mt3"],
-            })
-            // Add layer control
-            const baseLayers = L.control
-                .layers({
-                "Satellite": googleHybrid,
-                "Base Map": baseLayer
-                })
-                .addTo(taskMap);
-
-            const coordinates = [];
-            const markerPoints = [];
-            // per ogni punto
-            let n = 0;
-            for (p of points) {
-                // tabella
-                $("#taskTable tbody").append(
-                    `<tr>
-                        <td>${p.name}</td>
-                        <td>${p.lat}</td>
-                        <td>${p.lon}</td>
-                        <td>${p.radius}</td>
-                        <td>${p.points}</td>
-                        <td>${p.toplanding?p.toplandingPoints:"No"}</th>
-                        <td>${p.start?"Si":"No"}</th>
+        <div class="col" style="height: 400px; overflow: auto;">
+            <h5>Waypoints <button type="button" class="btn btn-primary btn-sm float-end" onclick="wptCreator();"><i class="fa-solid fa-download"></i></button></h5>
+            <table class="table table-bordered table-hover table-striped table-sm" id="taskTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Altitude</th>
+                        <th>Raggio</th>
+                        <th>Points</th>
+                        <th>Top landing</th>
+                        <th>Start</th>
                     </tr>
-                    `
-                );
-                const point = [p.lat, p.lon];
-                coordinates.push(point);
-                // marker
-                const iconPoint = map_create_fa_marker_icon("fa-solid fa-location-pin", p.name, pointColors[p.points], "#fff", "#000");
-                markerPoints[n] = L.marker(point).addTo(taskMap).bindPopup(popupText(p));
-                markerPoints[n].setIcon(iconPoint); // aggiorno il marker con la nuova icona
-                // cerchio
-                L.circle(point, {radius: p.radius, color: pointColors[p.points]}).addTo(taskMap);
-                //
-                n++;
-            }
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- jQuery ver. 3.6.0 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Bootstrap ver. 5.1.3 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.2.0/Control.FullScreen.min.js"
+        integrity="sha512-10PRJppn1d6/3lrfc+7e4S+0mfdNFLlv3QmDpwISpVsrPdkSccy/T22neLEWc5cmL6biDscH3WwrhHam9vMOIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- functions -->
+    <script src="./definitions.js"></script>
+    <script src="./map.js"></script>
+    <script src="./functions.js"></script>
+    <script>
+        async function fetchWaypointsJSON() {
+            const response = await fetch('/waypoints.json');
+            const waypoints = await response.json();
+            createTaskMap(waypoints);
+            createTaskTable(waypoints);
+        }
+        fetchWaypointsJSON();
+    </script>
 
-            taskMap.fitBounds(new L.LatLngBounds(coordinates), {
-                padding: [10, 10],
-                maxZoom: 10,
-            }); // per centrare e autozoomare la mappa (uso i punti reali)
+</body>
 
-
-            // creazione marker generico con icona font awesome e testo passati in input
-            function map_create_fa_marker_icon(fa, text, iconColor = "green", bgcolor = "#666", textColor = "#ffffff") {
-                const htmlMarker = `
-                <div style="white-space:nowrap; position: relative;">
-                    <div style="font-size: 30px; line-height: 0; position: absolute; top: -20px; left: -6px;">
-                        <i class="${fa}" style="padding: 1px; color: ${iconColor};"></i>
-                    </div>
-                    <div style="position: absolute; top: -45px; left: -5px; font-size: 11px;">
-                        <span style="background: ${bgcolor}; border-radius: 5px; padding: 2px; border: 2px solid ${textColor}; font-weight: bold; color: ${textColor};">
-                            ${text}
-                        </span>
-                    </div>
-                </div>`;
-                const iconPoint = new L.DivIcon({
-                    html: htmlMarker,
-                    className: "qboardApp",
-                });
-                return iconPoint;
-            }
-
-            function popupText(p){
-                let txt = `<div><strong>${p.name}</strong></div>`;
-                if(p.points>0){
-                    txt += `<div>Punti: ${p.points}</div>`;
-                }
-                if(p.start){
-                    txt += `<div>Start task</div>`;
-                }
-                if(p.radius){
-                    txt += `<div>Raggio: ${p.radius} metri</div>`;
-                }
-                if(p.toplanding){
-                    txt += `<div>Top landing consentito: ${p.toplandingPoints} punti</div>`;
-                }
-                return txt;
-            }
-
-        </script>
-
-    </body>
 </html>
