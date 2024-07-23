@@ -339,5 +339,27 @@
         "toplanding": false,
         "toplandingPoints": 0,
         "start": false
+    },
+    {
+        "name": "Centro benessere Conte", 
+        "lat": 45.52069992535966,
+        "lon": 10.814203648842822,
+        "alt": 115,
+        "points": 3,
+        "radius": 400,
+        "toplanding": false,
+        "toplandingPoints": 0,
+        "start": false
+    },
+    {
+        "name": "San Rocco", 
+        "lat": 45.56535867949262,
+        "lon": 10.914041396401286,
+        "alt": 115,
+        "points": 3,
+        "radius": 400,
+        "toplanding": false,
+        "toplandingPoints": 0,
+        "start": false
     }
 ]

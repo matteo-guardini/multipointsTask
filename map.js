@@ -17,7 +17,7 @@ function createTaskMap(points) {
             maxZoom: 19,
             attribution: "",
         }
-    ).addTo(taskMap);;
+    ).addTo(taskMap);
     // mappa ibrida google
     const googleHybrid = L.tileLayer("http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}", {
         maxZoom: 22,
