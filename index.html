@@ -96,7 +96,7 @@
     <script src="./functions.js"></script>
     <script>
         async function fetchWaypointsJSON() {
-            const response = await fetch('/waypoints.json');
+            const response = await fetch('waypoints.json');
             const waypoints = await response.json();
             createTaskMap(waypoints);
             createTaskTable(waypoints);

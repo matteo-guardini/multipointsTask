@@ -18,7 +18,7 @@ function createTaskTable(points) {
 }
 
 async function wptCreator_wpt() {
-    const response = await fetch('/waypoints.json');
+    const response = await fetch('waypoints.json');
     const waypoints = await response.json();
     let fileContent = "G  WGS 84";
     fileContent += "\nU  1";
@@ -36,7 +36,7 @@ async function wptCreator_wpt() {
 }
 
 async function wptCreator() {
-    const response = await fetch('/waypoints.json');
+    const response = await fetch('waypoints.json');
     const waypoints = await response.json();
     /*A01016    N 46 03 26.31    E 012 32 53.77   164  ATTERRAGGIO LE MASIERE
     col 1: id
